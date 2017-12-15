@@ -3,6 +3,17 @@ import { IonicPage, NavController, LoadingController, ModalController } from 'io
 //import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database-deprecated";
 import { Geolocation } from '@ionic-native/geolocation';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  LatLng,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+ } from '@ionic-native/google-maps';
+
 
 @Component({
   selector: 'page-home',
@@ -33,11 +44,17 @@ export class HomePage {
   business: FirebaseListObservable<any[]>;
   tracker: FirebaseListObservable<any>;
 
+  map: GoogleMap;
+  mapElement: HTMLElement;
+  private selfmarker: Marker;
+  public subscription: any;
+
   constructor(
     private afDB: AngularFireDatabase,
     private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    private googleMaps: GoogleMaps) {
 
     let loader = this.loadingCtrl.create({
       content: "Obteniendo Datos...",
@@ -118,6 +135,15 @@ export class HomePage {
           fake = fake + 0.0001000;
           this.lat = data.coords.latitude + fake;
           this.long = data.coords.longitude;
+          let userPosition: LatLng = new LatLng(this.lat, this.long);
+          let position: CameraPosition<any> = {
+            target: userPosition,
+            zoom: 15,
+            tilt: 0
+          };
+          this.map.moveCamera(position);
+
+
           this.cont = this.cont + 1;
           let date = this.timeConverter(data.timestamp);
           this.tracker.push({ lat: this.lat, long: this.long, transport_unit_id: _unit_id, timestamp: data.timestamp, created_at: date });
@@ -172,6 +198,29 @@ export class HomePage {
 
   }
 
+  loadMap() {
+    this.mapElement = document.getElementById('map');
+
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: -18.4803045,
+          lng: -70.2969735
+        },
+        zoom: 14,
+        tilt: 30
+      }
+    };
+
+    this.map = this.googleMaps.create(this.mapElement, mapOptions);
+
+    //ESPERA QUE EL MAPA ESTE LISTO ANTES DE USAR ALGUN METODO
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        console.log('Map is ready!');
+
+      });
+  }
 
 
 }

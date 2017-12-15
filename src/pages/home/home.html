@@ -5,10 +5,10 @@
       <button ion-button icon-only (click)="openModal()">
         <ion-icon name="md-options"></ion-icon>
       </button>
-      <button *ngIf="isTracking == 0" ion-button icon-only  (click)="startGeolocation(selected_unit_id)">
+      <button *ngIf="isTracking == 0" ion-button icon-only (click)="startGeolocation(selected_unit_id)">
         <ion-icon name="md-locate"></ion-icon>
       </button>
-      <button *ngIf="isTracking == 1" ion-button icon-only  (click)="stopGeolocation()">
+      <button *ngIf="isTracking == 1" ion-button icon-only (click)="stopGeolocation()">
         <ion-icon name="md-square"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,6 +16,10 @@
 </ion-header>
 
 <ion-content padding>
+
+  <div #map id="map" style="height: 100%;">
+  </div>
+  
   <h2>contador: {{cont}}</h2>
 
 
@@ -26,7 +30,7 @@
   <h5>{{long}}</h5>
   <h5>Latitud:</h5>
   <h5>{{lat}}</h5>
-  
+
   <!--<h5>{{driver_by_unit_id?.name}}{{driver_by_unit_id?.surname1}}{{driver_by_unit_id?.surname2}}</h5>-->
   <!--<h5>Compañia:</h5>-->
 
