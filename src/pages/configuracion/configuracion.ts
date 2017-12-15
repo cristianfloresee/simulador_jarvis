@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, NavParams, ViewController } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database-deprecated";
 @IonicPage()
 @Component({
   selector: 'page-configuracion',
@@ -74,7 +73,7 @@ export class ConfiguracionPage {
   onSelectUnit() {
     console.log("");
     console.log("division seleccionada: ", this.selected_unit_id);
-    
+
     //console.log(key_unit);
     //this.selected_unit_id = key_unit;
   }
@@ -85,13 +84,13 @@ export class ConfiguracionPage {
 
   dismiss(selected_category_id, selected_unit_id) {
 
-    
+
     let response = {
       selected_category_id,
       selected_unit_id,
     };
-    
-    
+
+
     this.viewCtrl.dismiss(response);
   }
 

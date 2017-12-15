@@ -1,5 +1,5 @@
 page-configuracion {
-    
+
       ion-select {
         margin: auto;
         max-width: 90%;
@@ -19,7 +19,7 @@ page-configuracion {
         overflow: hidden;
         border-radius: 3%;
         }
-        
+
       .header {
         color:            white;
         margin:           0 !important;
@@ -30,7 +30,7 @@ page-configuracion {
         text-transform:   uppercase;
         background-color: color($colors, blue);
       }
-    
+
       .fecha-asistencia{
         margin:          0;
         display:         flex;
@@ -39,7 +39,7 @@ page-configuracion {
         .fecha-asistencia__group {
           flex: 1;
           text-align: center;
-          .title { 
+          .title {
             color:            white;
             margin:           0;
             font-size:        1.6rem;
@@ -52,7 +52,7 @@ page-configuracion {
             color:            color($colors, dark_gray);
             font-size:        1.4rem;
             background-color: color($colors, light);
-            text-transform:   uppercase;      
+            text-transform:   uppercase;
             display: block;
           }
           & + .fecha-asistencia__group {
@@ -72,7 +72,7 @@ page-configuracion {
           padding: .8rem;
         }
         .content {
-          color:            color($colors, dark_gray);      
+          color:            color($colors, dark_gray);
           padding: 1.6rem;
           font-size: 1.4rem;
         margin: 0 0 1.6rem;
@@ -85,6 +85,7 @@ page-configuracion {
         bottom: 0px;
         position: absolute;
         margin: 0;
+        font-weight: bold;
         }
 
 
@@ -113,5 +114,5 @@ page-configuracion {
         .active .modal-backdrop-bg {
           opacity: 0.5;
         }
-        
+
     }

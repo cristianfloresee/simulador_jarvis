@@ -7,9 +7,12 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+//import { AngularFireModule } from 'angularfire2';
+//import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from "angularfire2/database-deprecated";
+import { AngularFireModule } from 'angularfire2';
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAnfhMJ-bRE066SRZpLVf3KaKMUh02QaRo",
@@ -29,8 +32,7 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

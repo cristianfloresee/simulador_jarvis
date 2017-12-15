@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, ModalController } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+//import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database-deprecated";
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
@@ -108,19 +109,24 @@ export class HomePage {
 
     this.isTracking = 1;
     let fake = 0.0001000;
-    let options = { timeout: 3000, enableHighAccuracy: true, frequency: 3000, };
+    let options = { enableHighAccuracy: true, frequency: 5000 };
     this.watch = this.geolocation.watchPosition(options)
       .subscribe((data) => {
-        fake = fake + 0.0001000;
-        this.lat = data.coords.latitude + fake;
-        this.long = data.coords.longitude;
-        this.cont = this.cont + 1;
-        let date = this.timeConverter(data.timestamp);
-        this.tracker.push({ lat: this.lat, long: this.long, transport_unit_id: _unit_id, timestamp: data.timestamp, created_at: date });
-        this.unit_tracker.update({ last_latitude: this.lat, last_longitude: this.long, created_at: date, state: this.isTracking });
-        this.active_units.set({ last_latitude: this.lat, last_longitude: this.long, created_at: date });
+        console.log("datito: ", data);
+        if(data.coords){
 
-        console.log(data);
+          fake = fake + 0.0001000;
+          this.lat = data.coords.latitude + fake;
+          this.long = data.coords.longitude;
+          this.cont = this.cont + 1;
+          let date = this.timeConverter(data.timestamp);
+          this.tracker.push({ lat: this.lat, long: this.long, transport_unit_id: _unit_id, timestamp: data.timestamp, created_at: date });
+          this.unit_tracker.update({ last_latitude: this.lat, last_longitude: this.long, created_at: date, state: this.isTracking });
+          this.active_units.set({ last_latitude: this.lat, last_longitude: this.long, created_at: date });
+
+          console.log(data);
+        }
+
       });
   }
 
@@ -148,9 +154,9 @@ export class HomePage {
 
   openModal() {
     let myModal = this.modalCtrl.create('ConfiguracionPage', { selected_category_id: this.selected_category_id, selected_unit_id: this.selected_unit_id } , { cssClass: 'inset-modal' });
-      
+
     myModal.onDidDismiss(response => {
-      
+
       console.log("respuesta del modal: ", response)
       this.selected_category_id = response.selected_category_id;
       this.selected_unit_id = response.selected_unit_id;
@@ -159,9 +165,9 @@ export class HomePage {
         this.cod_asignatura = cod_asignatura;
         this.cod_periodo = this.asignaturas[cod_asignatura].cod_periodo;
       }*/
-        
+
     });
-    
+
     myModal.present();
 
   }
